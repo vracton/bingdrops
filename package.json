@@ -10,13 +10,17 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.2.1",
+    "@react-native-community/checkbox": "^0.5.17",
     "@react-navigation/bottom-tabs": "^6.5.20",
+    "bootstrap": "^5.3.3",
     "expo": "~51.0.14",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
+    "react-bootstrap": "^2.10.3",
     "react-dom": "18.2.0",
     "react-native": "0.74.2",
-    "react-native-web": "~0.19.10"
+    "react-native-web": "~0.19.10",
+    "expo-checkbox": "~3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
