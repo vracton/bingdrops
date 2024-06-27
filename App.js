@@ -14,12 +14,16 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator screenOptions = {{
         tabBarStyle: styles.tab,
+        headerStyle: styles.header,
+        headerTintColor: "white"
       }}>
         <Tab.Screen
           name="Gallery"
           component={GalleryScreen}
+          tabBarColor="#000"
           options={{
             tabBarLabel: "Gallery",
+            headerStyle: styles.header,
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="image-multiple" color={color} size={size} />
             ),
@@ -52,7 +56,17 @@ export default function App() {
 
 const styles = StyleSheet.create({
   tab: {
-    padding: 6,
+    height: 80,
+    paddingHorizontal: 5,
+    paddingTop: 0,
     backgroundColor: '#000',
+    position: 'absolute',
+    borderTopWidth: 0,
+  },
+  header: {
+    backgroundColor: '#000',
+    borderBottomWidth: 0,
+    elevation: 0,
+    shadowOpacity: 0
   },
 });
