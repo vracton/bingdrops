@@ -1,14 +1,17 @@
 import { Text, View, FlatList, StyleSheet, Image } from "react-native";
+import WPCard from "./Components/wallpaperCard";
 
 export default function GalleryScreen() {
   return (
     <View
       style={{
-        backgroundColor: "#1C1C1E",
+        backgroundColor: "#000",
         flex: 1 /*, justifyContent: 'center', alignItems: 'center'*/,
       }}
     >
       <FlatList
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
         data={[
           {
             img: "/th?id=OHR.KokinoMacedonia_EN-US0466604378_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
@@ -32,15 +35,7 @@ export default function GalleryScreen() {
           },
         ]}
         renderItem={({ item }) => (
-          <View>
-            <Image
-              style={styles.logo}
-              source={{
-                uri: "https://bing.com"+item.img,
-              }}
-            />
-            <Text style={styles.item}>{item.title}</Text>
-          </View>
+          <WPCard img={"https://bing.com"+item.img} title={item.title}/>
         )}
       />
     </View>
@@ -49,17 +44,11 @@ export default function GalleryScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 22,
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-    color: "white"
-  },
-  logo: {
-    width: 480,
-    height: 270,
-  },
+    width: "90%",
+    borderRadius: 16,
+    padding: 8,
+    marginLeft: "5%",
+    marginBottom: "25%",
+    backgroundColor: "#1C1C1E",
+  }
 });
