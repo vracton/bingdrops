@@ -3,14 +3,14 @@ import { Text, View, FlatList, StyleSheet, Image } from "react-native";
 import WPCard from "./Components/wallpaperCard";
 import { useFocusEffect } from '@react-navigation/native';
 
-export default function GalleryScreen() {
+export default function GalleryScreen({navigation}) {
   const [listData, setData] = useState([])
 
   useFocusEffect(
     React.useCallback(() => {
       update()
       return () => {
-        //screen unfocused
+        //unfocus
       };
     }, [])
   );
@@ -25,7 +25,7 @@ export default function GalleryScreen() {
     for (let i=0;i<=7;i++){
       const res = JSON.parse(await fetch(`http://www.bing.com/HPImageArchive.aspx?format=js&idx=${i}&n=1&mkt=en-US`).then((res)=>{return res.text()}));
       data.push({
-        img: "https://bing.com"+res.images[0].url,
+        img: "https://bing.com"+res.images[0].url.replace("1920x1080","UHD").replace("1920x1080","UHD"),
         title: res.images[0].title,
         copy: res.images[0].copyright.split("(")[1].split(")")[0],
         date: res.images[0].startdate.slice(4,6)+"/"+res.images[0].startdate.slice(6,8)+"/"+res.images[0].startdate.slice(2,4),
@@ -47,7 +47,7 @@ export default function GalleryScreen() {
       showsVerticalScrollIndicator={false}
         data={listData}
         renderItem={({ item }) => (
-          <WPCard img={item.img} title={item.title} copyright={item.copy} date={item.date} displaySep={item.displaySep} startState={false}/>
+          <WPCard navigation={navigation} img={item.img} title={item.title} copyright={item.copy} date={item.date} displaySep={item.displaySep} startState={false}/>
         )}
       />
     </View>

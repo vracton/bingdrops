@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity} from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity, useWindowDimensions } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from 'expo-haptics';
+import {Dimensions} from "react-native"
 
-export default function WPCard({ img, title, copyright, date, updateFunc, displaySep }) {
+export default function WPCard({ img, title, copyright, date, updateFunc, displaySep, navigation }) {
   const [active, setCount] = useState(0);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function WPCard({ img, title, copyright, date, updateFunc, displa
     func();
   }, []);
 
-  const onPress = async () => {
+  const onFavPress = async () => {
     setCount((prev) => !prev);
     const data = await AsyncStorage.getItem("favorites");
     let d = JSON.parse(JSON.stringify(JSON.parse(data)));
@@ -43,8 +44,13 @@ export default function WPCard({ img, title, copyright, date, updateFunc, displa
     }
   };
 
+  const onImagePress = () => {
+    navigation.navigate("View",{url: img})
+  }
+
   return (
     <View>
+      <TouchableOpacity onPress={onImagePress}>
       <Image
         style={styles.logo}
         source={{
@@ -54,12 +60,13 @@ export default function WPCard({ img, title, copyright, date, updateFunc, displa
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.date}>{date}</Text>
       <Text style={styles.copy}>{copyright}</Text>
-      <TouchableOpacity style={styles.star} onPress={onPress}>
+      <TouchableOpacity style={styles.star} onPress={onFavPress}>
         <MaterialCommunityIcons
           name={active ? "star" : "star-outline"}
           color={active ? "rgb(255,214,10)" : "white"}
           size={30}
         />
+      </TouchableOpacity>
       </TouchableOpacity>
       <View
         style={{

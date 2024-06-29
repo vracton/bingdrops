@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import GalleryScreen from "./Gallery";
 import FavsScreen from "./Favorites";
 import SettingsScreen from "./Settings";
+import TestView from "./TestView";
 
 const Tab = createBottomTabNavigator();
 
@@ -44,6 +45,17 @@ export default function App() {
           name="Settings"
           component={SettingsScreen}
           options={{
+            tabBarLabel: "Settings",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="cog" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="View"
+          component={TestView}
+          options={{
+            headerShown: false,
             tabBarLabel: "Settings",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="cog" color={color} size={size} />
