@@ -1,31 +1,48 @@
-import React, { useState } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, View, StyleSheet, Image, TouchableOpacity} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Haptics from 'expo-haptics';
 
-export default function WPCard({ img, title }) {
+export default function WPCard({ img, title, updateFunc, displaySep }) {
   const [active, setCount] = useState(0);
+
+  useEffect(() => {
+    async function func() {
+      const data = await AsyncStorage.getItem("favorites");
+      let d = JSON.parse(data);
+      if (d != null) {
+        if (d[title]!=null){
+          setCount(true)
+        }
+      }
+    }
+    func();
+  }, []);
+
   const onPress = async () => {
     setCount((prev) => !prev);
-    const data = JSON.stringify({});
+    const data = await AsyncStorage.getItem("favorites");
     let d = JSON.parse(JSON.stringify(JSON.parse(data)));
     if (data == null) {
       d = {};
       d[title] = img;
-      console.log("none");
     } else {
       if (!active) {
         d[title] = img;
-        console.log("add");
       } else {
         delete d[title];
-        console.log("delete");
       }
     }
-    console.log(d)
+    //console.log(d);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
     const jsonValue = JSON.stringify(d);
-    await AsyncStorage.setItem("fav", jsonValue);
+    await AsyncStorage.setItem("favorites", jsonValue);
+    if (updateFunc){
+      updateFunc()
+    }
   };
+
   return (
     <View>
       <Image
@@ -52,7 +69,7 @@ export default function WPCard({ img, title }) {
           marginTop: -8,
           marginBottom: 8,
           marginLeft: "5%",
-          display: title != "The sacred lakes of Kelimutu" ? "block" : "none",
+          display: displaySep ? "block" : "none",
         }}
       />
     </View>

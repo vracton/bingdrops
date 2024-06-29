@@ -35,7 +35,7 @@ export default function GalleryScreen() {
           },
         ]}
         renderItem={({ item }) => (
-          <WPCard img={"https://bing.com"+item.img} title={item.title}/>
+          <WPCard img={"https://bing.com"+item.img} title={item.title} startState={false}/>
         )}
       />
     </View>

@@ -22,7 +22,9 @@
     "react-dom": "18.2.0",
     "react-native": "0.74.2",
     "react-native-image-colors": "^2.4.0",
-    "react-native-web": "~0.19.10"
+    "react-native-switch-with-icons": "^3.0.1",
+    "react-native-web": "~0.19.10",
+    "expo-haptics": "~13.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

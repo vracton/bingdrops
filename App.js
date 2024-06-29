@@ -32,6 +32,7 @@ export default function App() {
         <Tab.Screen
           name="Favorites"
           component={FavsScreen}
+          onF
           options={{
             tabBarLabel: "Favorites",
             tabBarIcon: ({ color, size }) => (

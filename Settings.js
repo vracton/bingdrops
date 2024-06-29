@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import CheckBox from 'expo-checkbox';
+import {Text, View, StyleSheet, Switch} from 'react-native';
 
 export default function SettingsScreen() {
   const [isSelected, setSelection] = useState(false);
@@ -9,28 +8,34 @@ export default function SettingsScreen() {
   return (
     <View style={{backgroundColor: "#1C1C1E", flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <View style={styles.checkboxContainer}>
-        <CheckBox
-        value={darkMode}
-        onValueChange={setSel}
-          style={styles.checkbox}
-        />
         <Text style={styles.label}>Dark Mode</Text>
+        <Switch
+        trackColor={{false: '#767577', true: '#30D158'}}
+        thumbColor={'#f4f3f4'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={setSel}
+        value={darkMode}
+      />
       </View>
       <View style={styles.checkboxContainer}>
-        <CheckBox
-        value={savePrev}
+        <Text style={styles.label}>Save Previous Images</Text>
+        <Switch
+        trackColor={{false: '#767577', true: '#30D158'}}
+        thumbColor={'#f4f3f4'}
+        ios_backgroundColor="#3e3e3e"
         onValueChange={setSele}
-          style={styles.checkbox}
-        />
-        <Text style={styles.label}>Automatically Save Previous Images</Text>
+        value={savePrev}
+      />
       </View>
       <View style={styles.checkboxContainer}>
-        <CheckBox
+        <Text style={styles.label}>4k Downloads</Text>
+        <Switch
+        trackColor={{false: '#767577', true: '#30D158'}}
+        thumbColor={'#f4f3f4'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={setSelection}
         value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-        <Text style={styles.label}>Download in 4k?</Text>
+      />
       </View>
     </View>
   );
@@ -40,9 +45,6 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
     marginBottom: 20,
-  },
-  checkbox: {
-    alignSelf: 'center',
   },
   label: {
     margin: 8,
