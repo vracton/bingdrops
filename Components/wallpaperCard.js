@@ -45,7 +45,8 @@ export default function WPCard({ img, title, copyright, date, updateFunc, displa
   };
 
   const onImagePress = () => {
-    navigation.navigate("View",{url: img})
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+    navigation.navigate("Test",{url: img})
   }
 
   return (

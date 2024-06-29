@@ -4,7 +4,7 @@ import WPCard from "./Components/wallpaperCard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from '@react-navigation/native';
 
-export default function FavsScreen() {
+export default function FavsScreen({navigation}) {
   const [favData, setData] = useState({});
   useFocusEffect(
     React.useCallback(() => {
@@ -50,7 +50,7 @@ export default function FavsScreen() {
         showsVerticalScrollIndicator={false}
         data={favData}
         renderItem={({ item }) => (
-          <WPCard img={item.img} title={item.title} displaySep={item.displaySep} startState={true} updateFunc={update}/>
+          <WPCard img={item.img} title={item.title} displaySep={item.displaySep} navigation={navigation} startState={true} updateFunc={update}/>
         )}
       />
     </View>
