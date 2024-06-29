@@ -1,7 +1,24 @@
+import React, { useState } from "react";
 import { Text, View, FlatList, StyleSheet, Image } from "react-native";
 import WPCard from "./Components/wallpaperCard";
+//import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function FavsScreen() {
+  //const [favData, setData] = useState({});
+  // const a = setInterval(async()=>{
+  //   const data = await AsyncStorage.getItem("favorites");
+  //   let d = JSON.parse(JSON.stringify(data));
+  //   let listData = []
+  //   if (d!=null){
+  //     for (let i of d){
+  //       listData.push({
+  //         img: i,
+  //         title: d[i]
+  //       })
+  //     }
+  //   }
+  //   setData(listData)
+  // }, 1000)
   return (
     <View
       style={{
