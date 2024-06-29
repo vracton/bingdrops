@@ -1,7 +1,40 @@
+import React, { useState, useEffect, Component } from "react";
 import { Text, View, FlatList, StyleSheet, Image } from "react-native";
 import WPCard from "./Components/wallpaperCard";
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function GalleryScreen() {
+  const [listData, setData] = useState([])
+
+  useFocusEffect(
+    React.useCallback(() => {
+      update()
+      return () => {
+        //screen unfocused
+      };
+    }, [])
+  );
+  useEffect(() => {
+    async function func() {
+      update();
+    }
+    func();
+  }, []);
+  async function update() {
+    let data = []
+    for (let i=0;i<=7;i++){
+      const res = JSON.parse(await fetch(`http://www.bing.com/HPImageArchive.aspx?format=js&idx=${i}&n=1&mkt=en-US`).then((res)=>{return res.text()}));
+      data.push({
+        img: "https://bing.com"+res.images[0].url,
+        title: res.images[0].title,
+        copy: res.images[0].copyright.split("(")[1].split(")")[0],
+        date: res.images[0].startdate.slice(4,6)+"/"+res.images[0].startdate.slice(6,8)+"/"+res.images[0].startdate.slice(2,4),
+        displaySep: i==7?false:true
+      })
+    }
+    setData(data)
+  }
+  
   return (
     <View
       style={{
@@ -12,30 +45,9 @@ export default function GalleryScreen() {
       <FlatList
       style={styles.container}
       showsVerticalScrollIndicator={false}
-        data={[
-          {
-            img: "/th?id=OHR.KokinoMacedonia_EN-US0466604378_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
-            title: "Sunrise on the solstic",
-          },
-          {
-            img: "/th?id=OHR.LewaGiraffe_EN-US0571205457_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
-            title: "Spot-on connection",
-          },
-          {
-            img: "/th?id=OHR.BrazilRainforest_EN-US0704211658_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
-            title: "Getting lost in the mist",
-          },
-          {
-            img: "/th?id=OHR.DhakaBangladesh_EN-US0835586345_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
-            title: "Dark night, city lights",
-          },
-          {
-            img: "/th?id=OHR.FloresIsland_EN-US1042279828_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
-            title: "The sacred lakes of Kelimutu",
-          },
-        ]}
+        data={listData}
         renderItem={({ item }) => (
-          <WPCard img={"https://bing.com"+item.img} title={item.title} startState={false}/>
+          <WPCard img={item.img} title={item.title} copyright={item.copy} date={item.date} displaySep={item.displaySep} startState={false}/>
         )}
       />
     </View>

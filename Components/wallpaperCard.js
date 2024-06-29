@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from 'expo-haptics';
 
-export default function WPCard({ img, title, updateFunc, displaySep }) {
+export default function WPCard({ img, title, copyright, date, updateFunc, displaySep }) {
   const [active, setCount] = useState(0);
 
   useEffect(() => {
@@ -52,8 +52,8 @@ export default function WPCard({ img, title, updateFunc, displaySep }) {
         }}
       />
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.date}>01/01/70</Text>
-      <Text style={styles.copy}>© John D. Example Pictures</Text>
+      <Text style={styles.date}>{date}</Text>
+      <Text style={styles.copy}>{copyright}</Text>
       <TouchableOpacity style={styles.star} onPress={onPress}>
         <MaterialCommunityIcons
           name={active ? "star" : "star-outline"}
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     textShadowColor: "rgba(0, 0, 0, 0.75)",
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
-    marginTop: 22,
+    marginTop: 24,
     fontSize: 16,
   },
   star: {
