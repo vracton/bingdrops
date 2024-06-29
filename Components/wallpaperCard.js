@@ -7,26 +7,24 @@ export default function WPCard({ img, title }) {
   const [active, setCount] = useState(0);
   const onPress = async () => {
     setCount((prev) => !prev);
-    const data = await AsyncStorage.getItem("favorites");
-    let d = JSON.parse(JSON.stringify(data));
+    const data = JSON.stringify({});
+    let d = JSON.parse(JSON.stringify(JSON.parse(data)));
     if (data == null) {
       d = {};
-      d.change = 0
-      d.img = title;
+      d[title] = img;
       console.log("none");
     } else {
-      d.change++
-      if (active) {
-        d.img = title;
+      if (!active) {
+        d[title] = img;
         console.log("add");
       } else {
-        delete d.img;
+        delete d[title];
         console.log("delete");
       }
     }
     console.log(d)
     const jsonValue = JSON.stringify(d);
-    await AsyncStorage.setItem("favorites", jsonValue);
+    await AsyncStorage.setItem("fav", jsonValue);
   };
   return (
     <View>
