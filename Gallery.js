@@ -47,7 +47,7 @@ export default function GalleryScreen({navigation}) {
       showsVerticalScrollIndicator={false}
         data={listData}
         renderItem={({ item }) => (
-          <WPCard navigation={navigation} img={item.img} title={item.title} copyright={item.copy} date={item.date} displaySep={item.displaySep} startState={false}/>
+          <WPCard navigation={navigation} img={item.img} title={item.title} copyright={item.copy} date={item.date} displaySep={item.displaySep} refererPage={"Gallery"} startState={false}/>
         )}
       />
     </View>

@@ -3,9 +3,8 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, useWindowDimensions } 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from 'expo-haptics';
-import {Dimensions} from "react-native"
 
-export default function WPCard({ img, title, copyright, date, updateFunc, displaySep, navigation }) {
+export default function WPCard({ img, title, copyright, date, updateFunc, displaySep, navigation, refererPage }) {
   const [active, setCount] = useState(0);
 
   useEffect(() => {
@@ -46,7 +45,7 @@ export default function WPCard({ img, title, copyright, date, updateFunc, displa
 
   const onImagePress = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
-    navigation.navigate("Test",{url: img})
+    navigation.navigate("Test",{url: img, referer: refererPage})
   }
 
   return (

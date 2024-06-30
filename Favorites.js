@@ -50,7 +50,7 @@ export default function FavsScreen({navigation}) {
         showsVerticalScrollIndicator={false}
         data={favData}
         renderItem={({ item }) => (
-          <WPCard img={item.img} title={item.title} displaySep={item.displaySep} navigation={navigation} startState={true} updateFunc={update}/>
+          <WPCard img={item.img} title={item.title} displaySep={item.displaySep} navigation={navigation} refererPage={"Favorites"} startState={true} updateFunc={update}/>
         )}
       />
     </View>
