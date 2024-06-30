@@ -1,44 +1,45 @@
-import React, { useState, useRef} from "react";
+import React, { useState, useRef } from "react";
 import {
   Text,
   View,
   StyleSheet,
   Image,
   Animated,
-  PanResponder, StatusBar, TouchableOpacity, Linking
+  PanResponder,
+  StatusBar,
+  TouchableOpacity,
+  Linking,
+  PushNotificationIOS,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function TestScreen({ navigation, route, referer }) {
   const pan = useRef(new Animated.ValueXY()).current;
 
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], {
-        useNativeDriver: false,
-      }),
-      onPanResponderRelease: () => {
-        pan.extractOffset();
-        
-      },
-    })
-  ).current;
-
+  const panResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: () => true,
+    onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], {
+      useNativeDriver: false,
+    }),
+    onPanResponderRelease: (e, {vx, dx}) => {
+      pan.extractOffset();
+    },
+  });
+  pan.setOffset({x:-200,y:0})
   const goBack = () => {
-    navigation.navigate(route.params.referer)
-  }
+    navigation.navigate(route.params.referer);
+  };
 
   const saveImage = () => {
-    Linking.openURL(route.params.url)
-  }
+    Linking.openURL(route.params.url);
+  };
 
   return (
-    <View style={styles.container}>  
-    <StatusBar hidden />
+    <View style={styles.container}>
+      <StatusBar hidden />
       <Animated.View
         style={{
-          transform: [{ translateX: (pan.x+100) }, { translateY: 0 }],
+          transform: [{ translateX: pan.x }, { translateY: 0 }],
         }}
         {...panResponder.panHandlers}
       >
@@ -60,22 +61,27 @@ export default function TestScreen({ navigation, route, referer }) {
       </Animated.View>
       <Text style={styles.date}>Sunday, January 1</Text>
       <Text style={styles.time}>10:09</Text>
-      <TouchableOpacity style={styles.back} onPress={goBack}><MaterialCommunityIcons
+      <TouchableOpacity style={styles.back} onPress={goBack}>
+        <MaterialCommunityIcons
           name={"keyboard-return"}
           color={"white"}
           size={30}
-        /></TouchableOpacity>
-        <TouchableOpacity style={styles.save} onPress={saveImage}><MaterialCommunityIcons
+        />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.save} onPress={saveImage}>
+        <MaterialCommunityIcons
           name={"content-save"}
           color={"white"}
           size={30}
-        /></TouchableOpacity>
+        />
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    overflow: "hidden",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -94,7 +100,7 @@ const styles = StyleSheet.create({
     top: 0,
     marginTop: 90,
     textAlign: "center",
-    color:"rgba(255,255,255,0.9)",
+    color: "rgba(255,255,255,0.9)",
     fontSize: 100,
     fontWeight: "bold",
     textShadowColor: "rgba(0, 0, 0, 0.75)",
@@ -107,7 +113,7 @@ const styles = StyleSheet.create({
     top: 0,
     marginTop: 70,
     textAlign: "center",
-    color:"rgba(255,255,255,0.9)",
+    color: "rgba(255,255,255,0.9)",
     fontSize: 20,
     fontWeight: "500",
     textShadowColor: "rgba(0, 0, 0, 0.75)",
@@ -118,13 +124,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 47,
     left: 47,
-    width:50,
-    height:50,
+    width: 50,
+    height: 50,
     backgroundColor: "rgba(28,28,30,0.9)",
     borderRadius: "50%",
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: 'rgba(0,0,0, .4)',
+    shadowColor: "rgba(0,0,0, .4)",
     shadowOffset: { height: 1, width: 1 },
     shadowOpacity: 1,
     shadowRadius: 1,
@@ -133,15 +139,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 47,
     right: 47,
-    width:50,
-    height:50,
+    width: 50,
+    height: 50,
     backgroundColor: "rgba(28,28,30,0.9)",
     borderRadius: "50%",
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: 'rgba(0,0,0, .4)',
+    shadowColor: "rgba(0,0,0, .4)",
     shadowOffset: { height: 1, width: 1 },
     shadowOpacity: 1,
     shadowRadius: 1,
-  }
+  },
 });

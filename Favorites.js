@@ -34,7 +34,9 @@ export default function FavsScreen({navigation}) {
         });
       }
     }
-    listData[listData.length-1].displaySep = false
+    if (listData.length>0){
+      listData[listData.length-1].displaySep = false
+    }
     setData(listData);
   }
   
